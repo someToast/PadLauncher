@@ -1,6 +1,6 @@
 # Pad Launcher
 
-A native macOS launcher in the spirit of the classic **DragThing** — a floating, tabbed pad of your apps, files, folders, and links that stays out of the way until you summon it with a **four‑finger trackpad pinch**.
+A native macOS launcher in the spirit of the classic **DragThing.** A floating, tabbed pad of your apps, files, folders, and links that stays out of the way until you summon it with a **four‑finger trackpad pinch**.
 
 <p align="center">
   <img src="docs/pad-launcher.png" alt="Pad Launcher window" width="720">
@@ -10,7 +10,7 @@ A native macOS launcher in the spirit of the classic **DragThing** — a floatin
 
 ## Overview
 
-Pad Launcher is a background (menu‑bar) app built with AppKit + SwiftUI. Pinch four fingers together on the trackpad and a launcher panel appears, centered where your cursor is. Click something to open it and the panel dismisses; click away and it disappears. Everything you launch is organized into color‑coded **tabs** you arrange however you like.
+Pad Launcher is a background (menu‑bar) app built with AppKit + SwiftUI. Pinch four fingers together on the trackpad and a launcher panel appears, centered where your cursor is. Click something to open it and the panel dismisses; click away and it disappears. Everything you launch is organized into color‑coded tabs you arrange however you like.
 
 It’s a personal, “unsanctioned” app: it uses a private multitouch framework to capture the pinch and is intentionally **not** sandboxed, so it isn’t an App Store app — it’s built for Developer ID / local use.
 
@@ -20,11 +20,11 @@ It’s a personal, “unsanctioned” app: it uses a private multitouch framewor
 - **Tabbed organization.** Up to 10 color‑coded tabs. Switch with a click or with bare number keys (`1`–`9`, `0` for the 10th).
 - **Add anything.** Drag apps, files, folders, or URLs onto a tab — or use the Finder contextual menu **“Add to Pad Launcher ▸ <tab>”** (with multi‑item selection).
 - **Direct manipulation.** Drag icons to reorder, drag them onto a tab’s name to move them to another tab, or hold **⌥ Option** while dropping on a tab to duplicate.
-- **Multi‑select.** Rubber‑band drag to select a group; **⌘‑click** to toggle individual icons; **⇧‑click** to extend a contiguous range. Move, delete, or duplicate the whole selection at once.
-- **Drag‑off to delete.** Drag an icon or tab off the window — a trash badge marks the drop zone, and the item shrinks to a point before it’s removed.
+- **Multi‑select.** Rubber‑band drag to select a group; **⌘‑click** to toggle individual icons; **⇧‑click** to extend a range. Move, delete, or duplicate the whole selection at once.
+- **Drag‑off to delete.** Drag an icon or tab off the window — a trash badge marks the drop zone.
 - **Tab styling.** Recolor all tabs from the current tab’s color using color‑wheel harmonies — Complementary, Split Complementary, Compound, Shades, Triad, or a Rainbow sweep.
 - **Live entries.** Items track the file they point to: renamed files update their label, and items whose target no longer exists are hidden automatically.
-- **Fits your screen.** Custom edge/corner resizing that keeps the window centered, plus a “Size Window to Fit” command.
+- **Fits your screen.** Resize manually from the edges or use the “Size Window to Fit” command to size to the most-populated tab.
 
 ## Requirements
 
