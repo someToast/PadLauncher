@@ -33,16 +33,23 @@ It’s a personal, “unsanctioned” app: it uses a private multitouch framewor
 
 ## Building
 
-1. Clone the repo and open `TabLauncher.xcodeproj` in Xcode.
-2. Select the **Pad Launcher** scheme, then set your own **Development Team** under *Signing & Capabilities* (the committed project intentionally ships with no team ID). The app and its Finder extension share an App Group, so both targets need the same team.
-3. Build and run.
+1. Clone the repo and set your signing team. The project reads it from a git‑ignored
+   `Signing.local.xcconfig` so no team ID is ever committed:
 
-To build from the command line, pass your team ID:
+   ```bash
+   cp Signing.local.xcconfig.example Signing.local.xcconfig
+   # then edit Signing.local.xcconfig and set DEVELOPMENT_TEAM = YOURTEAMID
+   ```
+
+   (Or skip the file and just pick your team under *Signing & Capabilities* in Xcode.)
+   The app and its Finder extension share an App Group, so both targets use the same team.
+2. Open `TabLauncher.xcodeproj`, select the **Pad Launcher** scheme, and build & run.
+
+To build from the command line (once `Signing.local.xcconfig` is set, no extra flags needed):
 
 ```bash
 xcodebuild -project TabLauncher.xcodeproj -scheme "Pad Launcher" \
-  -configuration Release -derivedDataPath ./DerivedData \
-  DEVELOPMENT_TEAM=YOURTEAMID build
+  -configuration Release -derivedDataPath ./DerivedData build
 ```
 
 The **Add to Pad Launcher** Finder extension is embedded in the app; enable it under **System Settings → General → Login Items & Extensions → Finder extensions** after first launch.

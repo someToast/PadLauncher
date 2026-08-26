@@ -1,0 +1,7 @@
+// Shared build settings for Pad Launcher.
+//
+// Machine-specific signing (your Apple Developer Team ID) lives in Signing.local.xcconfig,
+// which is git-ignored so it never lands in a commit. Copy Signing.local.xcconfig.example
+// to Signing.local.xcconfig and set your team. The `?` makes the include optional, so a
+// fresh clone without that file still builds (you just set your own team in Xcode).
+#include? "Signing.local.xcconfig"
