@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A0000210000000000000001 /* PinchGestureMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000200000000000000001 /* PinchGestureMonitor.swift */; };
+		1A0000230000000000000001 /* LauncherWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000220000000000000001 /* LauncherWindowView.swift */; };
+		1A0001010000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000010000000000000001 /* AppDelegate.swift */; };
+		1A0001020000000000000001 /* LauncherModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000020000000000000001 /* LauncherModels.swift */; };
+		1A0001030000000000000001 /* LauncherStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000030000000000000001 /* LauncherStore.swift */; };
+		1A0001050000000000000001 /* FloatingLauncherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000050000000000000001 /* FloatingLauncherController.swift */; };
+		1A0001060000000000000001 /* TabStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000060000000000000001 /* TabStripView.swift */; };
+		1A0001070000000000000001 /* LauncherPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000070000000000000001 /* LauncherPanelView.swift */; };
+		1A0001080000000000000001 /* LauncherItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0000080000000000000001 /* LauncherItemView.swift */; };
+		1A0001090000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A0000090000000000000001 /* Assets.xcassets */; };
+		1A00010A0000000000000001 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A00000E0000000000000011 /* Main.swift */; };
+		1A0002070000000000000001 /* PadLauncherShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0002010000000000000001 /* PadLauncherShared.swift */; };
+		1A0002080000000000000001 /* PadLauncherShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0002010000000000000001 /* PadLauncherShared.swift */; };
+		1A0002090000000000000001 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0002020000000000000001 /* FinderSync.swift */; };
+		1A00020A0000000000000001 /* PadLauncherFinder.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1A0002060000000000000001 /* PadLauncherFinder.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1A0002160000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A0000160000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A00020D0000000000000001;
+			remoteInfo = PadLauncherFinder;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1A0002140000000000000001 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1A00020A0000000000000001 /* PadLauncherFinder.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1A0000010000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1A0000020000000000000001 /* LauncherModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherModels.swift; sourceTree = "<group>"; };
+		1A0000030000000000000001 /* LauncherStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherStore.swift; sourceTree = "<group>"; };
+		1A0000050000000000000001 /* FloatingLauncherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingLauncherController.swift; sourceTree = "<group>"; };
+		1A0000060000000000000001 /* TabStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabStripView.swift; sourceTree = "<group>"; };
+		1A0000070000000000000001 /* LauncherPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherPanelView.swift; sourceTree = "<group>"; };
+		1A0000080000000000000001 /* LauncherItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherItemView.swift; sourceTree = "<group>"; };
+		1A0000090000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A00000A0000000000000001 /* Pad Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pad Launcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A00000E0000000000000011 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		1A0000200000000000000001 /* PinchGestureMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchGestureMonitor.swift; sourceTree = "<group>"; };
+		1A0000220000000000000001 /* LauncherWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherWindowView.swift; sourceTree = "<group>"; };
+		1A0002010000000000000001 /* PadLauncherShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PadLauncherShared.swift; sourceTree = "<group>"; };
+		1A0002020000000000000001 /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
+		1A0002030000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A0002040000000000000001 /* FinderExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FinderExtension.entitlements; sourceTree = "<group>"; };
+		1A0002050000000000000001 /* TabLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TabLauncher.entitlements; sourceTree = "<group>"; };
+		1A0002060000000000000001 /* PadLauncherFinder.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PadLauncherFinder.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A0000140000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0002120000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A00000B0000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				1A00000C0000000000000001 /* Pad Launcher */,
+				1A00020B0000000000000001 /* Shared */,
+				1A00020C0000000000000001 /* FinderExtension */,
+				1A00000D0000000000000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1A00000C0000000000000001 /* Pad Launcher */ = {
+			isa = PBXGroup;
+			children = (
+				1A00000E0000000000000011 /* Main.swift */,
+				1A0000010000000000000001 /* AppDelegate.swift */,
+				1A00000E0000000000000001 /* Models */,
+				1A00000F0000000000000001 /* Controllers */,
+				1A0000100000000000000001 /* Views */,
+				1A0000090000000000000001 /* Assets.xcassets */,
+				1A0002050000000000000001 /* TabLauncher.entitlements */,
+			);
+			path = TabLauncher;
+			sourceTree = "<group>";
+		};
+		1A00000D0000000000000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A00000A0000000000000001 /* Pad Launcher.app */,
+				1A0002060000000000000001 /* PadLauncherFinder.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A00000E0000000000000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1A0000020000000000000001 /* LauncherModels.swift */,
+				1A0000030000000000000001 /* LauncherStore.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1A00000F0000000000000001 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1A0000050000000000000001 /* FloatingLauncherController.swift */,
+				1A0000200000000000000001 /* PinchGestureMonitor.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		1A0000100000000000000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A0000060000000000000001 /* TabStripView.swift */,
+				1A0000220000000000000001 /* LauncherWindowView.swift */,
+				1A0000070000000000000001 /* LauncherPanelView.swift */,
+				1A0000080000000000000001 /* LauncherItemView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1A00020B0000000000000001 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				1A0002010000000000000001 /* PadLauncherShared.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		1A00020C0000000000000001 /* FinderExtension */ = {
+			isa = PBXGroup;
+			children = (
+				1A0002020000000000000001 /* FinderSync.swift */,
+				1A0002030000000000000001 /* Info.plist */,
+				1A0002040000000000000001 /* FinderExtension.entitlements */,
+			);
+			path = FinderExtension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A0000110000000000000001 /* Pad Launcher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A0000120000000000000001 /* Build configuration list for PBXNativeTarget "Pad Launcher" */;
+			buildPhases = (
+				1A0000130000000000000001 /* Sources */,
+				1A0000140000000000000001 /* Frameworks */,
+				1A0000150000000000000001 /* Resources */,
+				1A0002140000000000000001 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A0002150000000000000001 /* PBXTargetDependency */,
+			);
+			name = "Pad Launcher";
+			productName = "Pad Launcher";
+			productReference = 1A00000A0000000000000001 /* Pad Launcher.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1A00020D0000000000000001 /* PadLauncherFinder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A00020E0000000000000001 /* Build configuration list for PBXNativeTarget "PadLauncherFinder" */;
+			buildPhases = (
+				1A0002110000000000000001 /* Sources */,
+				1A0002120000000000000001 /* Frameworks */,
+				1A0002130000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PadLauncherFinder;
+			productName = PadLauncherFinder;
+			productReference = 1A0002060000000000000001 /* PadLauncherFinder.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A0000160000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					1A0000110000000000000001 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					1A00020D0000000000000001 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+				};
+			};
+			buildConfigurationList = 1A0000170000000000000001 /* Build configuration list for PBXProject "TabLauncher" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1A00000B0000000000000001;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 1A00000D0000000000000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1A0000110000000000000001 /* Pad Launcher */,
+				1A00020D0000000000000001 /* PadLauncherFinder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1A0000150000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0001090000000000000001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0002130000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A0000130000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A00010A0000000000000001 /* Main.swift in Sources */,
+				1A0001010000000000000001 /* AppDelegate.swift in Sources */,
+				1A0001020000000000000001 /* LauncherModels.swift in Sources */,
+				1A0001030000000000000001 /* LauncherStore.swift in Sources */,
+				1A0001050000000000000001 /* FloatingLauncherController.swift in Sources */,
+				1A0000210000000000000001 /* PinchGestureMonitor.swift in Sources */,
+				1A0001060000000000000001 /* TabStripView.swift in Sources */,
+				1A0000230000000000000001 /* LauncherWindowView.swift in Sources */,
+				1A0001070000000000000001 /* LauncherPanelView.swift in Sources */,
+				1A0001080000000000000001 /* LauncherItemView.swift in Sources */,
+				1A0002070000000000000001 /* PadLauncherShared.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A0002110000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0002090000000000000001 /* FinderSync.swift in Sources */,
+				1A0002080000000000000001 /* PadLauncherShared.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A0002150000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A00020D0000000000000001 /* PadLauncherFinder */;
+			targetProxy = 1A0002160000000000000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1A0000180000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1A0000190000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		1A00001A0000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TabLauncher/TabLauncher.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Pad Launcher";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHighResolutionCapable = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "RIP Launchpad 2011–2025";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.toastbucket.PadLauncher;
+				PRODUCT_NAME = "Pad Launcher";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1A00001B0000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TabLauncher/TabLauncher.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Pad Launcher";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHighResolutionCapable = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "RIP Launchpad 2011–2025";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.toastbucket.PadLauncher;
+				PRODUCT_NAME = "Pad Launcher";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1A00020F0000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FinderExtension/FinderExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.toastbucket.PadLauncher.FinderExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1A0002100000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = FinderExtension/FinderExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.toastbucket.PadLauncher.FinderExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A0000120000000000000001 /* Build configuration list for PBXNativeTarget "Pad Launcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A00001A0000000000000001 /* Debug */,
+				1A00001B0000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A0000170000000000000001 /* Build configuration list for PBXProject "TabLauncher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A0000180000000000000001 /* Debug */,
+				1A0000190000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A00020E0000000000000001 /* Build configuration list for PBXNativeTarget "PadLauncherFinder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A00020F0000000000000001 /* Debug */,
+				1A0002100000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1A0000160000000000000001 /* Project object */;
+}
