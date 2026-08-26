@@ -10,10 +10,6 @@ final class FloatingLauncherController: NSObject {
     private var presentationScreen: NSScreen?
     private var keyMonitor: Any?
     private var clickOutsideMonitor: Any?
-    /// A leading "1" is held briefly to see if a second digit follows (→ tabs 10–19).
-    private var pendingLeadingOne = false
-    private var pendingDigitResolve: DispatchWorkItem?
-    private let multiDigitWindow = 0.35
 
     private var isRecentering = false
     private var cancellables = Set<AnyCancellable>()
@@ -86,6 +82,9 @@ final class FloatingLauncherController: NSObject {
     /// Reveals the launcher centered on the screen under the cursor, with the first
     /// tab selected by default.
     func present() {
+        // Refresh cached item metadata on each show so renamed/removed items update, while
+        // repeated renders during this showing reuse the cache instead of re-hitting disk.
+        LauncherMetadataCache.shared.invalidate()
         if selection.tabID == nil {
             selection.tabID = store.tabs.first?.id
         }
@@ -114,7 +113,6 @@ final class FloatingLauncherController: NSObject {
     /// Hides the launcher and stops observing dismissal events.
     func dismiss() {
         guard selection.presented else { return }
-        cancelPendingDigit()
         removeMonitors()
         selection.isEditing = false
         selection.editingTitleTabID = nil
@@ -212,35 +210,9 @@ final class FloatingLauncherController: NSObject {
         }
     }
 
-    /// Routes a bare digit to a tab: 0 → tab 10; 2–9 → that tab immediately; 1 waits briefly
-    /// for a second digit (→ tabs 10–19) and otherwise resolves to tab 1.
+    /// Routes a bare digit to a tab: 1–9 select immediately; 0 selects the 10th (the max).
     private func handleTabDigit(_ digit: Int) {
-        if pendingLeadingOne {
-            cancelPendingDigit()
-            selectTab(number: 10 + digit) // "1" + d → 10…19 ("1""0" also gives 10)
-            return
-        }
-        switch digit {
-        case 0:
-            selectTab(number: 10)
-        case 1:
-            pendingLeadingOne = true
-            let work = DispatchWorkItem { [weak self] in
-                self?.pendingLeadingOne = false
-                self?.pendingDigitResolve = nil
-                self?.selectTab(number: 1)
-            }
-            pendingDigitResolve = work
-            DispatchQueue.main.asyncAfter(deadline: .now() + multiDigitWindow, execute: work)
-        default: // 2–9 (no two-digit tab can start with these, since the max is 19)
-            selectTab(number: digit)
-        }
-    }
-
-    private func cancelPendingDigit() {
-        pendingDigitResolve?.cancel()
-        pendingDigitResolve = nil
-        pendingLeadingOne = false
+        selectTab(number: digit == 0 ? 10 : digit)
     }
 
     /// Selects the tab at 1-based `number`, if it exists.
@@ -264,7 +236,6 @@ final class FloatingLauncherController: NSObject {
                 }
 
                 if event.keyCode == 53 { // Escape
-                    self.cancelPendingDigit()
                     self.dismiss()
                     return nil
                 }

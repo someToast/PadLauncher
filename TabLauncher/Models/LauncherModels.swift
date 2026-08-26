@@ -85,13 +85,15 @@ struct LauncherItem: Identifiable, Codable, Equatable {
 }
 
 extension LauncherItem {
-    var resolvedURL: URL {
+    /// Resolves the security-scoped bookmark to its current on-disk location. `.withoutMounting`
+    /// avoids triggering volume mounts or hydration of on-demand cloud files (OneDrive, iCloud).
+    func resolveBookmark() -> URL {
         guard let bookmarkData else { return url }
 
         var isStale = false
         if let resolved = try? URL(
             resolvingBookmarkData: bookmarkData,
-            options: [.withoutUI],
+            options: [.withoutUI, .withoutMounting],
             relativeTo: nil,
             bookmarkDataIsStale: &isStale
         ) {
@@ -101,30 +103,73 @@ extension LauncherItem {
         return url
     }
 
-    var icon: NSImage {
-        if kind == .url {
-            return NSWorkspace.shared.icon(for: .url)
-        }
-
-        return NSWorkspace.shared.icon(forFile: resolvedURL.path)
-    }
-
-    /// The live, localized filesystem name (nil for URLs or if unreadable).
-    var liveName: String? {
+    /// Freshly reads the localized filesystem name (nil for URLs or if unreadable).
+    func readLiveName() -> String? {
         guard kind != .url else { return nil }
-        return try? resolvedURL.resourceValues(forKeys: [.localizedNameKey]).localizedName
+        return try? resolveBookmark().resourceValues(forKeys: [.localizedNameKey]).localizedName
     }
 
-    /// What to show under the icon: a manual rename wins, otherwise the current
-    /// filesystem name, otherwise the name captured when the item was added.
-    var displayName: String {
-        customName ?? liveName ?? title
+    // These read through a shared cache so repeated SwiftUI renders don't re-resolve bookmarks
+    // or stat the file system — important for on-demand cloud files that would otherwise cause
+    // a File Provider round-trip on every redraw. The cache is cleared each time the launcher
+    // is shown (see FloatingLauncherController.present()), so renamed/removed items refresh.
+    var resolvedURL: URL { LauncherMetadataCache.shared.resolvedURL(for: self) }
+    var icon: NSImage { LauncherMetadataCache.shared.icon(for: self) }
+    var liveName: String? { LauncherMetadataCache.shared.liveName(for: self) }
+    var exists: Bool { LauncherMetadataCache.shared.exists(for: self) }
+
+    /// What to show under the icon: a manual rename wins, otherwise the current filesystem
+    /// name, otherwise the name captured when the item was added.
+    var displayName: String { customName ?? liveName ?? title }
+}
+
+/// Caches per-item filesystem metadata (resolved location, existence, icon, name) so the grid
+/// can re-render freely without repeatedly resolving bookmarks or stat-ing files — which is
+/// especially costly for on-demand cloud storage. Cleared when the launcher is shown, so a
+/// single showing does at most one lookup per item while renamed/removed items still refresh.
+final class LauncherMetadataCache {
+    static let shared = LauncherMetadataCache()
+
+    private var resolvedURLs: [UUID: URL] = [:]
+    private var existence: [UUID: Bool] = [:]
+    private var liveNames: [UUID: String?] = [:]
+    private var icons: [UUID: NSImage] = [:]
+
+    func invalidate() {
+        resolvedURLs.removeAll()
+        existence.removeAll()
+        liveNames.removeAll()
+        icons.removeAll()
     }
 
-    /// Whether the target still exists (URLs are always considered present).
-    var exists: Bool {
-        if kind == .url { return true }
-        return FileManager.default.fileExists(atPath: resolvedURL.path)
+    func resolvedURL(for item: LauncherItem) -> URL {
+        if let cached = resolvedURLs[item.id] { return cached }
+        let url = item.resolveBookmark()
+        resolvedURLs[item.id] = url
+        return url
+    }
+
+    func exists(for item: LauncherItem) -> Bool {
+        if let cached = existence[item.id] { return cached }
+        let value = item.kind == .url ? true : FileManager.default.fileExists(atPath: resolvedURL(for: item).path)
+        existence[item.id] = value
+        return value
+    }
+
+    func icon(for item: LauncherItem) -> NSImage {
+        if let cached = icons[item.id] { return cached }
+        let image = item.kind == .url
+            ? NSWorkspace.shared.icon(for: .url)
+            : NSWorkspace.shared.icon(forFile: resolvedURL(for: item).path)
+        icons[item.id] = image
+        return image
+    }
+
+    func liveName(for item: LauncherItem) -> String? {
+        if let cached = liveNames[item.id] { return cached }
+        let name = item.readLiveName()
+        liveNames[item.id] = name
+        return name
     }
 }
 
