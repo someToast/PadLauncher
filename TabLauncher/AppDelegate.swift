@@ -115,6 +115,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Show Launcher", action: #selector(showLauncher), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Hide Launcher", action: #selector(hideLauncher), keyEquivalent: ""))
+        // Manual fallback: re-register the trackpad if the pinch ever stops responding
+        // (the monitor also re-arms itself automatically on wake / session change).
+        menu.addItem(NSMenuItem(title: "Re-arm Pinch", action: #selector(rearmPinch), keyEquivalent: ""))
         // Available while the OS pinch is still enabled — the way back after "Not Now".
         if !PinchGestureSetup.isDisabled {
             menu.addItem(.separator())
@@ -210,6 +213,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func hideLauncher() {
         launcherController?.dismiss()
+    }
+
+    @objc private func rearmPinch() {
+        pinchMonitor?.rearm()
     }
 
     @objc private func quit() {

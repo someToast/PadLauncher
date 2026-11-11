@@ -20,9 +20,27 @@ final class FloatingLauncherController: NSObject {
     private let scaleAmount: CGFloat = 1.1
     private var animationToken = 0
 
+    private static let widthKey = "launcherWindowWidth"
+    private static let heightKey = "launcherWindowHeight"
+    private static let defaultSize = NSSize(width: 1080, height: 620)
+
+    /// The last size the user resized the launcher to, persisted across launches.
+    private static func savedRestSize() -> NSSize {
+        let defaults = UserDefaults.standard
+        let w = defaults.double(forKey: widthKey)
+        let h = defaults.double(forKey: heightKey)
+        guard w > 0, h > 0 else { return defaultSize }
+        return NSSize(width: w, height: h)
+    }
+
+    private func saveRestSize(_ size: NSSize) {
+        UserDefaults.standard.set(Double(size.width), forKey: Self.widthKey)
+        UserDefaults.standard.set(Double(size.height), forKey: Self.heightKey)
+    }
+
     init(store: LauncherStore) {
         self.store = store
-        window = Self.makePanel(size: NSSize(width: 1080, height: 620))
+        window = Self.makePanel(size: Self.savedRestSize())
 
         super.init()
 
@@ -335,7 +353,9 @@ final class FloatingLauncherController: NSObject {
         height = min(max(height, window.minSize.height), vf.height)
 
         let origin = NSPoint(x: vf.midX - width / 2, y: vf.midY - height / 2)
-        window.setFrame(NSRect(origin: origin, size: NSSize(width: width, height: height)), display: true, animate: true)
+        let fitted = NSSize(width: width, height: height)
+        window.setFrame(NSRect(origin: origin, size: fitted), display: true, animate: true)
+        saveRestSize(fitted)
     }
 
     private func chipWidth(for title: String) -> CGFloat {
@@ -438,6 +458,7 @@ final class FloatingLauncherController: NSObject {
         }
         let origin = NSPoint(x: vf.midX - size.width / 2, y: vf.midY - size.height / 2)
         window.setFrame(NSRect(origin: origin, size: size), display: true)
+        saveRestSize(size)
     }
 
     private func positionWindow() {

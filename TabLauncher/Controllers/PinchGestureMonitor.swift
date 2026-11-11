@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 import QuartzCore
 
@@ -83,6 +84,7 @@ final class PinchGestureMonitor {
     private var stopFn: MTStopFn?
     private var unregisterFn: MTUnregisterFn?
     private var devices: [MTDeviceRef] = []
+    private var rearmObservers: [NSObjectProtocol] = []
 
     // Detection state — only touched on the MultitouchSupport callback thread.
     private var tracking = false
@@ -98,8 +100,7 @@ final class PinchGestureMonitor {
         }
         self.handle = handle
 
-        guard let createList = symbol("MTDeviceCreateList", MTDeviceCreateListFn.self),
-              let register = symbol("MTRegisterContactFrameCallback", MTRegisterFn.self),
+        guard let register = symbol("MTRegisterContactFrameCallback", MTRegisterFn.self),
               let start = symbol("MTDeviceStart", MTStartFn.self) else {
             NSLog("PinchGestureMonitor: missing MultitouchSupport symbols")
             return
@@ -109,11 +110,18 @@ final class PinchGestureMonitor {
         stopFn = symbol("MTDeviceStop", MTStopFn.self)
         unregisterFn = symbol("MTUnregisterContactFrameCallback", MTUnregisterFn.self)
 
-        guard let list = createList()?.takeRetainedValue() else {
+        registerDevices()
+        observeWakeEvents()
+    }
+
+    /// Enumerates the current multitouch devices and starts delivering contact frames.
+    private func registerDevices() {
+        guard let register = registerFn, let start = startFn,
+              let createList = symbol("MTDeviceCreateList", MTDeviceCreateListFn.self),
+              let list = createList()?.takeRetainedValue() else {
             NSLog("PinchGestureMonitor: no multitouch devices")
             return
         }
-
         PinchGestureMonitor.active = self
 
         let count = CFArrayGetCount(list)
@@ -126,12 +134,49 @@ final class PinchGestureMonitor {
         }
     }
 
-    func stop() {
+    private func unregisterDevices() {
         for device in devices {
             stopFn?(device)
             unregisterFn?(device, pinchContactCallback)
         }
         devices.removeAll()
+        tracking = false
+    }
+
+    /// Re-registers the trackpad after events that invalidate MultitouchSupport device
+    /// handles — sleep/wake, screen wake, fast user switch, trackpad reconnect. Without
+    /// this the raw contact callback silently stops and the pinch stays dead (the app
+    /// keeps running) until it's relaunched.
+    func rearm() {
+        guard handle != nil else { return }
+        unregisterDevices()
+        registerDevices()
+    }
+
+    /// On wake/session-activation, re-arm after a short delay so the multitouch stack has
+    /// re-enumerated the device before we register against it.
+    private func observeWakeEvents() {
+        guard rearmObservers.isEmpty else { return }
+        let center = NSWorkspace.shared.notificationCenter
+        let names: [Notification.Name] = [
+            NSWorkspace.didWakeNotification,
+            NSWorkspace.screensDidWakeNotification,
+            NSWorkspace.sessionDidBecomeActiveNotification
+        ]
+        for name in names {
+            let token = center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { self?.rearm() }
+            }
+            rearmObservers.append(token)
+        }
+    }
+
+    func stop() {
+        let center = NSWorkspace.shared.notificationCenter
+        for token in rearmObservers { center.removeObserver(token) }
+        rearmObservers.removeAll()
+
+        unregisterDevices()
         if PinchGestureMonitor.active === self {
             PinchGestureMonitor.active = nil
         }
